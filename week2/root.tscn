@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://cv25k6hmlb2fb"]
+
+[ext_resource type="PackedScene" uid="uid://b1jmevnfi3s85" path="res://paddle.tscn" id="1_jdq5m"]
+[ext_resource type="Texture2D" uid="uid://c3tiqesa1xf02" path="res://field_line.png" id="2_3d4ok"]
+[ext_resource type="Texture2D" uid="uid://cx537p1j1es4q" path="res://ball.png" id="3_pp0yv"]
+[ext_resource type="PhysicsMaterial" uid="uid://cckr0rd6qnhuh" path="res://default_physics_material.tres" id="3_u1g3c"]
+[ext_resource type="Script" path="res://ball.gd" id="4_esqhc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ot4ko"]
+radius = 12.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gg2yv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_kk7j6"]
+normal = Vector2(0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3v3mm"]
+font_size = 36
+
+[node name="Root" type="Node2D"]
+
+[node name="LeftPaddle" parent="." instance=ExtResource("1_jdq5m")]
+position = Vector2(30, 300)
+
+[node name="RightPaddle" parent="." instance=ExtResource("1_jdq5m")]
+position = Vector2(770, 300)
+player_type = 1
+
+[node name="FieldLine" type="Sprite2D" parent="."]
+position = Vector2(400, 300)
+texture = ExtResource("2_3d4ok")
+
+[node name="Ball" type="RigidBody2D" parent="."]
+position = Vector2(400, 300)
+physics_material_override = ExtResource("3_u1g3c")
+script = ExtResource("4_esqhc")
+move_speed = 300
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+texture = ExtResource("3_pp0yv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_ot4ko")
+
+[node name="Bounds" type="StaticBody2D" parent="."]
+
+[node name="BoundaryEdge1" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(400, 600)
+shape = SubResource("WorldBoundaryShape2D_gg2yv")
+
+[node name="BoundaryEdge2" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(400, 0)
+shape = SubResource("WorldBoundaryShape2D_kk7j6")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftScore" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 11.0
+offset_right = 389.0
+offset_bottom = 64.0
+text = "0"
+label_settings = SubResource("LabelSettings_3v3mm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightScore" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 412.0
+offset_top = 11.0
+offset_right = 452.0
+offset_bottom = 64.0
+text = "0"
+label_settings = SubResource("LabelSettings_3v3mm")
+horizontal_alignment = 1
+vertical_alignment = 1

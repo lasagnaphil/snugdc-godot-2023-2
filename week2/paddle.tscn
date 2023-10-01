@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1jmevnfi3s85"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://cckr0rd6qnhuh" path="res://default_physics_material.tres" id="1_0dds7"]
+[ext_resource type="Texture2D" uid="uid://ck4jhsl8v880b" path="res://paddle.png" id="1_1byga"]
+[ext_resource type="Script" path="res://paddle.gd" id="1_1wja0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtjas"]
+size = Vector2(16, 120)
+
+[node name="Paddle" type="AnimatableBody2D"]
+physics_material_override = ExtResource("1_0dds7")
+script = ExtResource("1_1wja0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_1byga")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vtjas")
